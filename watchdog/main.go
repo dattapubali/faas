@@ -28,6 +28,7 @@ var (
 )
 
 func main() {
+	setLogOutput()
 	flag.BoolVar(&versionFlag, "version", false, "Print the version and exit")
 
 	flag.Parse()
@@ -65,6 +66,19 @@ func main() {
 	shutdownTimeout := config.writeTimeout
 
 	listenUntilShutdown(shutdownTimeout, s, config.suppressLock)
+}
+
+func setLogOutput() {
+
+	file, err := os.OpenFile("info.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file.Close()
+
+	log.SetOutput(file)
+	log.Printf("Logging to a file in Go!")
 }
 
 func markUnhealthy() error {

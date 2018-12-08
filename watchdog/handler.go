@@ -63,6 +63,9 @@ func pipeRequest(config *WatchdogConfig, w http.ResponseWriter, r *http.Request,
 	startTime := time.Now()
 
 	parts := strings.Split(config.faasProcess, " ")
+	//parts = append([]string{"strace"}, parts...)
+
+	fmt.Println(parts)
 
 	ri := &requestInfo{}
 
@@ -70,7 +73,9 @@ func pipeRequest(config *WatchdogConfig, w http.ResponseWriter, r *http.Request,
 		debugHeaders(&r.Header, "in")
 	}
 
-	log.Println("Forking fprocess.")
+	//log.Println("Forking fprocess.")
+	fmt.Println("Forking fprocess.")
+	fmt.Println("Custom fwatchdog working.")
 
 	targetCmd := exec.Command(parts[0], parts[1:]...)
 

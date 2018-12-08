@@ -18,6 +18,7 @@ import (
 )
 
 func TestHandler_make(t *testing.T) {
+	//setLogOutput()
 	config := WatchdogConfig{}
 	handler := makeRequestHandler(&config)
 
@@ -27,6 +28,7 @@ func TestHandler_make(t *testing.T) {
 }
 
 func TestHandler_HasCustomHeaderInFunction_WithCgi_Mode(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := ""
@@ -66,6 +68,7 @@ func TestHandler_HasCustomHeaderInFunction_WithCgi_Mode(t *testing.T) {
 }
 
 func TestHandler_HasCustomHeaderInFunction_WithCgiMode_AndBody(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := "test"
@@ -105,6 +108,7 @@ func TestHandler_HasCustomHeaderInFunction_WithCgiMode_AndBody(t *testing.T) {
 }
 
 func TestHandler_HasHostHeaderWhenSet(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := "test"
@@ -135,6 +139,7 @@ func TestHandler_HasHostHeaderWhenSet(t *testing.T) {
 }
 
 func TestHandler_HostHeader_Empty_WhenNotSet(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := "test"
@@ -169,6 +174,7 @@ func TestHandler_StderrWritesToStderr_CombinedOutput_False(t *testing.T) {
 
 	b := bytes.NewBuffer([]byte{})
 	log.SetOutput(b)
+	//setLogOutput()
 
 	body := ""
 	req, err := http.NewRequest(http.MethodPost, "/", bytes.NewBufferString(body))
@@ -194,6 +200,7 @@ func TestHandler_StderrWritesToStderr_CombinedOutput_False(t *testing.T) {
 	}
 
 	log.SetOutput(os.Stderr)
+	//setLogOutput()
 
 	stderrBytes, _ := ioutil.ReadAll(b)
 	stderrVal := string(stderrBytes)
@@ -206,10 +213,12 @@ func TestHandler_StderrWritesToStderr_CombinedOutput_False(t *testing.T) {
 }
 
 func TestHandler_StderrWritesToResponse_CombinedOutput_True(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	b := bytes.NewBuffer([]byte{})
 	log.SetOutput(b)
+	//setLogOutput()
 
 	body := ""
 	req, err := http.NewRequest(http.MethodPost, "/", bytes.NewBufferString(body))
@@ -235,6 +244,7 @@ func TestHandler_StderrWritesToResponse_CombinedOutput_True(t *testing.T) {
 	}
 
 	log.SetOutput(os.Stderr)
+	//setLogOutput()
 
 	stderrBytes, _ := ioutil.ReadAll(b)
 	stderrVal := string(stderrBytes)
@@ -258,6 +268,7 @@ func TestHandler_StderrWritesToResponse_CombinedOutput_True(t *testing.T) {
 }
 
 func TestHandler_DoesntHaveCustomHeaderInFunction_WithoutCgi_Mode(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := ""
@@ -294,6 +305,7 @@ func TestHandler_DoesntHaveCustomHeaderInFunction_WithoutCgi_Mode(t *testing.T) 
 }
 
 func TestHandler_HasXDurationSecondsHeader(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := "hello"
@@ -321,6 +333,7 @@ func TestHandler_HasXDurationSecondsHeader(t *testing.T) {
 }
 
 func TestHandler_RequestTimeoutFailsForExceededDuration(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	verbs := []string{http.MethodPost}
@@ -349,6 +362,7 @@ func TestHandler_RequestTimeoutFailsForExceededDuration(t *testing.T) {
 }
 
 func TestHandler_StatusOKAllowed_ForWriteableVerbs(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	verbs := []string{http.MethodPost, http.MethodPut, http.MethodDelete}
@@ -381,6 +395,7 @@ func TestHandler_StatusOKAllowed_ForWriteableVerbs(t *testing.T) {
 }
 
 func TestHandler_StatusMethodNotAllowed_ForUnknown(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	req, err := http.NewRequest("UNKNOWN", "/", nil)
@@ -400,6 +415,7 @@ func TestHandler_StatusMethodNotAllowed_ForUnknown(t *testing.T) {
 }
 
 func TestHandler_StatusOKForGETAndNoBody(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	req, err := http.NewRequest(http.MethodGet, "/", nil)
@@ -423,6 +439,7 @@ func TestHandler_StatusOKForGETAndNoBody(t *testing.T) {
 }
 
 func TestHealthHandler_StatusOK_LockFilePresent(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	present := lockFilePresent()
@@ -448,6 +465,7 @@ func TestHealthHandler_StatusOK_LockFilePresent(t *testing.T) {
 }
 
 func TestHealthHandler_StatusInternalServerError_LockFileNotPresent(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	if lockFilePresent() == true {
@@ -470,6 +488,7 @@ func TestHealthHandler_StatusInternalServerError_LockFileNotPresent(t *testing.T
 }
 
 func TestHealthHandler_SatusMethoNotAllowed_ForWriteableVerbs(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	verbs := []string{http.MethodPost, http.MethodPut, http.MethodDelete}
@@ -491,6 +510,7 @@ func TestHealthHandler_SatusMethoNotAllowed_ForWriteableVerbs(t *testing.T) {
 }
 
 func TestHandler_HasFullPathAndQueryInFunction_WithCgi_Mode(t *testing.T) {
+	//setLogOutput()
 	rr := httptest.NewRecorder()
 
 	body := ""
